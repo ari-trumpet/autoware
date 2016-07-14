@@ -1,0 +1,21 @@
+ndt.align関数:点群マップとスキャンデータのマッチング
+→ボトルネックはcomputeDerivatives関数(のfor文がOpenMPで高速化されている)
+→高速化されたコードはndt.hppの緑色の所。
+→また、computeDerivatives関数のfor文にはradiusSearch関数があり、これも処理の遅い関数。rasiusSearchの実態はFLANNライブラリのradiusSearchを利用しており、FLANNではOpenMPでradiusSearchが並列化されている
+
+ndt.hpp内の関数一覧：
+NormalDistributionTransform()
+computeTransformation
+omp_computeTransformation
+cuda_forloop
+computeDerivatives	<-this!!
+omp_computeDerivatives
+computeAngleDerivatives
+computePointDerivatives
+updateDerivatives
+computeHessian
+updateHessian
+updateIntervalMT
+trialValueSelectionMT
+computeStepLengthMT
+
